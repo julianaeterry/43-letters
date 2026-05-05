@@ -1,8 +1,7 @@
 import { getStore } from "@netlify/blobs";
 
-export default async (req) => {
-  const body = await req.json();
-  // Webhook payload may be at top level or nested under "payload"
+export const handler = async (event) => {
+  const body = JSON.parse(event.body);
   const data = body.payload || body;
   const formName = data.form_name;
   const fields = data.data || data.human_fields || {};
@@ -51,9 +50,5 @@ export default async (req) => {
     }
   }
 
-  return new Response('ok', { status: 200 });
-};
-
-export const config = {
-  path: "/.netlify/functions/submission-created"
+  return { statusCode: 200, body: 'ok' };
 };
