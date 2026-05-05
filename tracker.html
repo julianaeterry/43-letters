@@ -400,26 +400,39 @@
 
     <script>
         (function() {
-            const STORAGE_KEY = '43-letters-tracker';
-
-            function load() {
-                try {
-                    return JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
-                } catch { return []; }
-            }
-
-            function save(people) {
-                localStorage.setItem(STORAGE_KEY, JSON.stringify(people));
-            }
-
-            let people = load();
+            const API = '/.netlify/functions/tracker-api';
+            let people = [];
             let currentFilter = 'all';
+            let saving = false;
 
             const personList = document.getElementById('person-list');
-            const emptyState = document.getElementById('empty-state');
             const addName = document.getElementById('add-name');
             const addMethod = document.getElementById('add-method');
             const addBtn = document.getElementById('add-btn');
+
+            async function load() {
+                try {
+                    const res = await fetch(API);
+                    people = await res.json();
+                } catch {
+                    people = [];
+                }
+                render();
+            }
+
+            async function save() {
+                if (saving) return;
+                saving = true;
+                try {
+                    await fetch(API, {
+                        method: 'PUT',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(people)
+                    });
+                } finally {
+                    saving = false;
+                }
+            }
 
             function updateStats() {
                 const total = people.length;
@@ -442,9 +455,7 @@
                 if (currentFilter === 'needs-letter') return !person.letterDone;
                 if (currentFilter === 'needs-photos') return person.photosPlanned && !person.photosDone;
                 if (currentFilter === 'complete') {
-                    const letterOk = person.letterDone;
-                    const photosOk = !person.photosPlanned || person.photosDone;
-                    return letterOk && photosOk;
+                    return person.letterDone && (!person.photosPlanned || person.photosDone);
                 }
                 return true;
             }
@@ -462,7 +473,7 @@
                     return;
                 }
 
-                filtered.forEach((person, _) => {
+                filtered.forEach(person => {
                     const idx = people.indexOf(person);
                     const li = document.createElement('li');
                     li.className = 'person-item';
@@ -495,7 +506,7 @@
             addName.addEventListener('keydown', e => { if (e.key === 'Enter') addPerson(); });
             addMethod.addEventListener('keydown', e => { if (e.key === 'Enter') addPerson(); });
 
-            function addPerson() {
+            async function addPerson() {
                 const name = addName.value.trim();
                 if (!name) return;
 
@@ -507,21 +518,21 @@
                     photosDone: false
                 });
 
-                save(people);
                 addName.value = '';
                 addMethod.value = '';
                 addName.focus();
                 render();
+                await save();
             }
 
-            personList.addEventListener('click', e => {
+            personList.addEventListener('click', async e => {
                 const toggle = e.target.closest('.status-toggle');
                 if (toggle) {
                     const idx = parseInt(toggle.dataset.idx);
                     const field = toggle.dataset.field;
                     people[idx][field] = !people[idx][field];
-                    save(people);
                     render();
+                    await save();
                     return;
                 }
 
@@ -530,8 +541,8 @@
                     const idx = parseInt(del.dataset.idx);
                     if (confirm(`Remove ${people[idx].name}?`)) {
                         people.splice(idx, 1);
-                        save(people);
                         render();
+                        await save();
                     }
                 }
             });
@@ -558,7 +569,7 @@
                 a.click();
             });
 
-            render();
+            load();
         })();
     </script>
 </body>
