@@ -530,7 +530,7 @@
         <div class="form-card" id="form-container">
             <h2 class="form-title">Count Me In</h2>
 
-            <form id="scrapbook-form" name="courtney-scrapbook" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" netlify>
+            <form id="scrapbook-form" name="courtney-scrapbook" method="POST" action="/" data-netlify="true" data-netlify-honeypot="bot-field" netlify>
                 <input type="hidden" name="form-name" value="courtney-scrapbook">
                 <p class="hidden-form">
                     <label>Don't fill this out: <input name="bot-field"></label>
@@ -698,8 +698,12 @@
                 submitBtn.textContent = 'Sending...';
 
                 const formData = new FormData(form);
+                // Remove hidden drop-off value if not shown
+                if (dropoffGroup.style.display === 'none') {
+                    formData.delete('dropoff-method');
+                }
 
-                fetch('/', {
+                fetch(form.getAttribute('action'), {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                     body: new URLSearchParams(formData).toString()
