@@ -508,7 +508,7 @@
                 <li>An inside joke or funny story</li>
             </ul>
 
-            <p class="numbered-ask"><strong>2. Photos</strong> (optional!) If you have photos of you and Courtney, or maybe of something meaningful you share, that you want included on your page please submit them through our <a href="/photos" style="color: #c48b7c; font-weight: 600;">photo submission form</a> or email them to juliana.elizabeth.t@gmail.com.</p>
+            <p class="numbered-ask"><strong>2. Photos</strong> (optional!) If you have photos of you and Courtney, or maybe of something meaningful you share, that you want included on your page please submit them through our <a href="/photos" style="color: #c48b7c; font-weight: 600;">photo submission form</a> or email them to juliana.elizabeth.t@gmail.com. Childhood and baby photos of Courtney are especially welcome!</p>
 
             <div class="timeline-section">
                 <h3 class="section-heading" style="margin-top: 0;">Timeline</h3>
@@ -585,13 +585,13 @@
                         </label>
                         <label class="radio-option">
                             <input type="radio" name="letter-method" value="Email">
-                            <span>Email</span>
+                            <span>Email (send to juliana.elizabeth.t@gmail.com)</span>
                         </label>
                     </div>
                     <p class="error-message">Please select an option</p>
                 </div>
 
-                <div class="form-group" data-required>
+                <div class="form-group" data-required id="dropoff-group">
                     <label>How will you be dropping off / submitting?</label>
                     <div class="radio-group">
                         <label class="radio-option">
@@ -647,6 +647,20 @@
             const form = document.getElementById('scrapbook-form');
             const submitBtn = document.getElementById('submit-btn');
             const confirmation = document.getElementById('confirmation');
+            const dropoffGroup = document.getElementById('dropoff-group');
+
+            // Show/hide drop-off question based on letter method
+            form.querySelectorAll('input[name="letter-method"]').forEach(radio => {
+                radio.addEventListener('change', function() {
+                    if (this.value === 'Email') {
+                        dropoffGroup.style.display = 'none';
+                        dropoffGroup.querySelectorAll('input[type="radio"]').forEach(r => r.required = false);
+                    } else {
+                        dropoffGroup.style.display = '';
+                        dropoffGroup.querySelector('input[type="radio"]').required = true;
+                    }
+                });
+            });
 
             function validateForm() {
                 let valid = true;
@@ -666,7 +680,10 @@
                     valid = false;
                 }
 
-                const radioGroups = ['letter-method', 'dropoff-method', 'photos'];
+                const radioGroups = ['letter-method', 'photos'];
+                if (dropoffGroup.style.display !== 'none') {
+                    radioGroups.push('dropoff-method');
+                }
                 radioGroups.forEach(groupName => {
                     const checked = form.querySelector(`input[name="${groupName}"]:checked`);
                     if (!checked) {
