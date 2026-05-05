@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tracker — 43 Letters</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: url('bg.jpg') center/cover no-repeat fixed;
+            color: #3d2c2c;
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 0;
+        }
+
+        .page-wrapper {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1.25rem 4rem;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .header h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
+            font-weight: 600;
+            color: #6b3a3a;
+        }
+
+        .progress-section {
+            background: rgba(255, 252, 248, 0.92);
+            backdrop-filter: blur(4px);
+            border: 1px solid #eeddd4;
+            border-radius: 16px;
+            padding: 1.5rem 1.75rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 20px rgba(107, 58, 58, 0.1);
+            text-align: center;
+        }
+
+        .progress-count {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3rem;
+            font-weight: 600;
+            color: #6b3a3a;
+        }
+
+        .progress-count span {
+            color: #c48b7c;
+        }
+
+        .progress-label {
+            font-size: 0.9rem;
+            color: #8a6060;
+            margin-bottom: 1rem;
+        }
+
+        .progress-bar-bg {
+            width: 100%;
+            height: 12px;
+            background: #eeddd4;
+            border-radius: 6px;
+            overflow: hidden;
+            margin-bottom: 0.75rem;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: linear-gradient(135deg, #c48b7c, #a8695c);
+            border-radius: 6px;
+            transition: width 0.4s ease;
+        }
+
+        .stats-row {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: #6b3a3a;
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            color: #8a6060;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            font-weight: 600;
+        }
+
+        .card {
+            background: rgba(255, 252, 248, 0.92);
+            backdrop-filter: blur(4px);
+            border: 1px solid #eeddd4;
+            border-radius: 16px;
+            padding: 1.5rem 1.75rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 20px rgba(107, 58, 58, 0.1);
+        }
+
+        .card-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #6b3a3a;
+            margin-bottom: 1rem;
+        }
+
+        .add-form {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .add-form input {
+            flex: 1;
+            min-width: 150px;
+            padding: 0.6rem 0.85rem;
+            border: 1.5px solid #e4d5cc;
+            border-radius: 8px;
+            font-family: 'Nunito', sans-serif;
+            font-size: 0.9rem;
+            color: #3d2c2c;
+            background: #fefcfa;
+        }
+
+        .add-form input:focus {
+            outline: none;
+            border-color: #c48b7c;
+            box-shadow: 0 0 0 3px rgba(196, 139, 124, 0.15);
+        }
+
+        .add-btn {
+            padding: 0.6rem 1.2rem;
+            background: linear-gradient(135deg, #c48b7c, #a8695c);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-family: 'Nunito', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 700;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        .add-btn:hover {
+            opacity: 0.9;
+        }
+
+        .filter-row {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.35rem 0.85rem;
+            border: 1.5px solid #e4d5cc;
+            border-radius: 20px;
+            background: transparent;
+            font-family: 'Nunito', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #8a6060;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+
+        .filter-btn.active {
+            background: #c48b7c;
+            border-color: #c48b7c;
+            color: #fff;
+        }
+
+        .person-list {
+            list-style: none;
+        }
+
+        .person-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.85rem 0;
+            border-bottom: 1px solid #f0e5dd;
+            flex-wrap: wrap;
+        }
+
+        .person-item:last-child {
+            border-bottom: none;
+        }
+
+        .person-name {
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: #4a3535;
+            flex: 1;
+            min-width: 120px;
+        }
+
+        .person-method {
+            font-size: 0.78rem;
+            color: #8a6060;
+            background: #fdf5f0;
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+        }
+
+        .status-toggles {
+            display: flex;
+            gap: 0.4rem;
+        }
+
+        .status-toggle {
+            padding: 0.3rem 0.7rem;
+            border: 1.5px solid #e4d5cc;
+            border-radius: 6px;
+            background: transparent;
+            font-family: 'Nunito', sans-serif;
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: #a08080;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+
+        .status-toggle.done {
+            background: #c48b7c;
+            border-color: #c48b7c;
+            color: #fff;
+        }
+
+        .delete-btn {
+            background: none;
+            border: none;
+            color: #d4a0a0;
+            cursor: pointer;
+            font-size: 1.1rem;
+            padding: 0 0.3rem;
+            transition: color 0.15s;
+        }
+
+        .delete-btn:hover {
+            color: #d4726a;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 2rem;
+            color: #a08080;
+            font-size: 0.9rem;
+        }
+
+        .export-btn {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            border: 1.5px solid #c48b7c;
+            border-radius: 8px;
+            background: transparent;
+            font-family: 'Nunito', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #6b3a3a;
+            cursor: pointer;
+            margin-top: 1rem;
+        }
+
+        .export-btn:hover {
+            background: #fdf5f0;
+        }
+
+        .back-link {
+            display: inline-block;
+            color: #c48b7c;
+            font-weight: 600;
+            text-decoration: none;
+            font-size: 0.9rem;
+            margin-top: 1rem;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 600px) {
+            .page-wrapper {
+                padding: 1.5rem 1rem 3rem;
+            }
+
+            .header h1 {
+                font-size: 1.6rem;
+            }
+
+            .progress-count {
+                font-size: 2.4rem;
+            }
+
+            .stats-row {
+                gap: 1.25rem;
+            }
+
+            .person-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+
+            .status-toggles {
+                width: 100%;
+            }
+
+            .status-toggle {
+                flex: 1;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page-wrapper">
+        <div class="header">
+            <h1>Letter Tracker</h1>
+        </div>
+
+        <div class="progress-section">
+            <div class="progress-count"><span id="total-count">0</span> / 43</div>
+            <div class="progress-label">people signed up</div>
+            <div class="progress-bar-bg">
+                <div class="progress-bar-fill" id="progress-bar" style="width: 0%"></div>
+            </div>
+            <div class="stats-row">
+                <div class="stat">
+                    <div class="stat-number" id="letters-received">0</div>
+                    <div class="stat-label">Letters In</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number" id="letters-pending">0</div>
+                    <div class="stat-label">Letters Pending</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number" id="photos-received">0</div>
+                    <div class="stat-label">Photos In</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number" id="photos-pending">0</div>
+                    <div class="stat-label">Photos Pending</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2 class="card-title">Add Person</h2>
+            <div class="add-form" id="add-form">
+                <input type="text" id="add-name" placeholder="Name">
+                <input type="text" id="add-method" placeholder="Method (handwritten, email)">
+                <button class="add-btn" id="add-btn">Add</button>
+            </div>
+
+            <div class="filter-row">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="needs-letter">Needs Letter</button>
+                <button class="filter-btn" data-filter="needs-photos">Needs Photos</button>
+                <button class="filter-btn" data-filter="complete">Complete</button>
+            </div>
+
+            <ul class="person-list" id="person-list">
+                <li class="empty-state" id="empty-state">No one added yet — add people as they sign up!</li>
+            </ul>
+
+            <button class="export-btn" id="export-btn">Export as CSV</button>
+        </div>
+
+        <a href="/" class="back-link">&larr; Back to the form</a>
+    </div>
+
+    <script>
+        (function() {
+            const STORAGE_KEY = '43-letters-tracker';
+
+            function load() {
+                try {
+                    return JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+                } catch { return []; }
+            }
+
+            function save(people) {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(people));
+            }
+
+            let people = load();
+            let currentFilter = 'all';
+
+            const personList = document.getElementById('person-list');
+            const emptyState = document.getElementById('empty-state');
+            const addName = document.getElementById('add-name');
+            const addMethod = document.getElementById('add-method');
+            const addBtn = document.getElementById('add-btn');
+
+            function updateStats() {
+                const total = people.length;
+                const lettersIn = people.filter(p => p.letterDone).length;
+                const photosIn = people.filter(p => p.photosDone).length;
+                const photosExpected = people.filter(p => p.photosPlanned).length;
+
+                document.getElementById('total-count').textContent = total;
+                document.getElementById('letters-received').textContent = lettersIn;
+                document.getElementById('letters-pending').textContent = total - lettersIn;
+                document.getElementById('photos-received').textContent = photosIn;
+                document.getElementById('photos-pending').textContent = photosExpected - photosIn;
+
+                const pct = Math.min((total / 43) * 100, 100);
+                document.getElementById('progress-bar').style.width = pct + '%';
+            }
+
+            function matchesFilter(person) {
+                if (currentFilter === 'all') return true;
+                if (currentFilter === 'needs-letter') return !person.letterDone;
+                if (currentFilter === 'needs-photos') return person.photosPlanned && !person.photosDone;
+                if (currentFilter === 'complete') {
+                    const letterOk = person.letterDone;
+                    const photosOk = !person.photosPlanned || person.photosDone;
+                    return letterOk && photosOk;
+                }
+                return true;
+            }
+
+            function render() {
+                const filtered = people.filter(matchesFilter);
+                personList.innerHTML = '';
+
+                if (filtered.length === 0) {
+                    const msg = people.length === 0
+                        ? 'No one added yet — add people as they sign up!'
+                        : 'No one matches this filter.';
+                    personList.innerHTML = `<li class="empty-state">${msg}</li>`;
+                    updateStats();
+                    return;
+                }
+
+                filtered.forEach((person, _) => {
+                    const idx = people.indexOf(person);
+                    const li = document.createElement('li');
+                    li.className = 'person-item';
+                    li.innerHTML = `
+                        <span class="person-name">${escapeHtml(person.name)}</span>
+                        ${person.method ? `<span class="person-method">${escapeHtml(person.method)}</span>` : ''}
+                        <div class="status-toggles">
+                            <button class="status-toggle ${person.letterDone ? 'done' : ''}" data-idx="${idx}" data-field="letterDone">
+                                ${person.letterDone ? '✓ Letter' : 'Letter'}
+                            </button>
+                            <button class="status-toggle ${person.photosDone ? 'done' : ''}" data-idx="${idx}" data-field="photosDone">
+                                ${person.photosDone ? '✓ Photos' : 'Photos'}
+                            </button>
+                        </div>
+                        <button class="delete-btn" data-idx="${idx}" title="Remove">&times;</button>
+                    `;
+                    personList.appendChild(li);
+                });
+
+                updateStats();
+            }
+
+            function escapeHtml(str) {
+                const div = document.createElement('div');
+                div.textContent = str;
+                return div.innerHTML;
+            }
+
+            addBtn.addEventListener('click', addPerson);
+            addName.addEventListener('keydown', e => { if (e.key === 'Enter') addPerson(); });
+            addMethod.addEventListener('keydown', e => { if (e.key === 'Enter') addPerson(); });
+
+            function addPerson() {
+                const name = addName.value.trim();
+                if (!name) return;
+
+                people.push({
+                    name: name,
+                    method: addMethod.value.trim(),
+                    letterDone: false,
+                    photosPlanned: true,
+                    photosDone: false
+                });
+
+                save(people);
+                addName.value = '';
+                addMethod.value = '';
+                addName.focus();
+                render();
+            }
+
+            personList.addEventListener('click', e => {
+                const toggle = e.target.closest('.status-toggle');
+                if (toggle) {
+                    const idx = parseInt(toggle.dataset.idx);
+                    const field = toggle.dataset.field;
+                    people[idx][field] = !people[idx][field];
+                    save(people);
+                    render();
+                    return;
+                }
+
+                const del = e.target.closest('.delete-btn');
+                if (del) {
+                    const idx = parseInt(del.dataset.idx);
+                    if (confirm(`Remove ${people[idx].name}?`)) {
+                        people.splice(idx, 1);
+                        save(people);
+                        render();
+                    }
+                }
+            });
+
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    currentFilter = btn.dataset.filter;
+                    render();
+                });
+            });
+
+            document.getElementById('export-btn').addEventListener('click', () => {
+                const rows = [['Name', 'Method', 'Letter Received', 'Photos Received']];
+                people.forEach(p => {
+                    rows.push([p.name, p.method || '', p.letterDone ? 'Yes' : 'No', p.photosDone ? 'Yes' : 'No']);
+                });
+                const csv = rows.map(r => r.map(c => `"${c}"`).join(',')).join('\n');
+                const blob = new Blob([csv], { type: 'text/csv' });
+                const a = document.createElement('a');
+                a.href = URL.createObjectURL(blob);
+                a.download = '43-letters-tracker.csv';
+                a.click();
+            });
+
+            render();
+        })();
+    </script>
+</body>
+</html>
