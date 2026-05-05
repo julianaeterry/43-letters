@@ -1,23 +1,23 @@
 import { getStore } from "@netlify/blobs";
 
 export default async (req) => {
-  const payload = await req.json();
-  const data = payload.payload || payload;
+  const body = await req.json();
+  // Webhook payload may be at top level or nested under "payload"
+  const data = body.payload || body;
   const formName = data.form_name;
+  const fields = data.data || data.human_fields || {};
+  const email = (fields['email'] || data.email || '').toLowerCase().trim();
 
   const store = getStore("tracker");
   const existing = await store.get("people", { type: "json" }) || [];
-  const email = (data.data?.email || '').toLowerCase().trim();
 
   if (formName === 'courtney-scrapbook') {
-    const name = data.data?.['full-name'] || 'Unknown';
-    const method = data.data?.['letter-method'] || '';
-    const photosAnswer = data.data?.photos || '';
+    const name = fields['full-name'] || data.name || 'Unknown';
+    const method = fields['letter-method'] || '';
+    const photosAnswer = fields['photos'] || '';
     const photosPlanned = photosAnswer.toLowerCase().includes('yes');
 
-    const alreadyExists = existing.some(
-      p => p.email === email
-    );
+    const alreadyExists = existing.some(p => p.email === email);
 
     if (!alreadyExists) {
       existing.push({
@@ -38,7 +38,7 @@ export default async (req) => {
       match.photosDone = true;
       await store.setJSON("people", existing);
     } else {
-      const name = data.data?.['full-name'] || 'Unknown';
+      const name = fields['full-name'] || data.name || 'Unknown';
       existing.push({
         name: name,
         email: email,
