@@ -1,7 +1,7 @@
 import { getStore } from "@netlify/blobs";
 
-export const handler = async (event) => {
-  const body = JSON.parse(event.body);
+export default async (req) => {
+  const body = await req.json();
   const data = body.payload || body;
   const formName = data.form_name;
   const fields = data.data || data.human_fields || {};
@@ -50,5 +50,8 @@ export const handler = async (event) => {
     }
   }
 
-  return { statusCode: 200, body: 'ok' };
+  return new Response(JSON.stringify({ ok: true }), {
+    status: 200,
+    headers: { "Content-Type": "application/json" }
+  });
 };
