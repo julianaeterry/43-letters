@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photo Submission — Courtney's 43rd Birthday Scrapbook</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background-color: #faf6f1;
+            color: #3d2c2c;
+            line-height: 1.7;
+            min-height: 100vh;
+            padding: 0;
+        }
+
+        .page-wrapper {
+            max-width: 680px;
+            margin: 0 auto;
+            padding: 2rem 1.25rem 4rem;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .header h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.4rem;
+            font-weight: 600;
+            color: #6b3a3a;
+            margin-bottom: 0.25rem;
+            letter-spacing: 0.02em;
+        }
+
+        .header .subtitle {
+            font-size: 1.05rem;
+            color: #c48b7c;
+            font-weight: 600;
+        }
+
+        .divider {
+            width: 80px;
+            height: 2px;
+            background: linear-gradient(to right, transparent, #c48b7c, transparent);
+            margin: 1.5rem auto;
+        }
+
+        .intro-card {
+            background: #fffcf8;
+            border: 1px solid #eeddd4;
+            border-radius: 16px;
+            padding: 2rem 1.75rem;
+            margin-bottom: 2.5rem;
+            box-shadow: 0 4px 20px rgba(107, 58, 58, 0.06);
+            position: relative;
+        }
+
+        .intro-card::before {
+            content: '';
+            position: absolute;
+            top: -6px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 6px;
+            background: #c48b7c;
+            border-radius: 3px;
+        }
+
+        .intro-card p {
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+            color: #4a3535;
+        }
+
+        .intro-card p:last-child {
+            margin-bottom: 0;
+        }
+
+        .deadline-banner {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            background: #fdf5f0;
+            border: 1.5px solid #c48b7c;
+            border-radius: 10px;
+            padding: 0.75rem 1.15rem;
+            margin-top: 0.5rem;
+        }
+
+        .deadline-banner .deadline-icon {
+            font-size: 1.4rem;
+        }
+
+        .deadline-banner .deadline-text {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #6b3a3a;
+        }
+
+        .email-note {
+            margin-top: 1rem;
+            padding: 0.75rem 1rem;
+            background: #f9f0ec;
+            border-radius: 8px;
+            border: 1px dashed #c48b7c;
+            font-size: 0.88rem;
+            color: #4a3535;
+        }
+
+        .email-note a {
+            color: #c48b7c;
+            font-weight: 600;
+        }
+
+        .form-card {
+            background: #fffcf8;
+            border: 1px solid #eeddd4;
+            border-radius: 16px;
+            padding: 2rem 1.75rem;
+            box-shadow: 0 4px 20px rgba(107, 58, 58, 0.06);
+        }
+
+        .form-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: #6b3a3a;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 0.4rem;
+            color: #4a3535;
+        }
+
+        .form-group label .optional {
+            font-weight: 400;
+            color: #a08080;
+            font-size: 0.85rem;
+        }
+
+        .form-group label .hint {
+            display: block;
+            font-weight: 400;
+            color: #8a6060;
+            font-size: 0.82rem;
+            margin-top: 0.2rem;
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="email"],
+        .form-group input[type="url"],
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1.5px solid #e4d5cc;
+            border-radius: 10px;
+            font-family: 'Nunito', sans-serif;
+            font-size: 0.95rem;
+            color: #3d2c2c;
+            background: #fefcfa;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #c48b7c;
+            box-shadow: 0 0 0 3px rgba(196, 139, 124, 0.15);
+        }
+
+        .form-group textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+
+        .form-group.error input,
+        .form-group.error textarea {
+            border-color: #d4726a;
+        }
+
+        .error-message {
+            color: #d4726a;
+            font-size: 0.82rem;
+            margin-top: 0.35rem;
+            display: none;
+            font-weight: 600;
+        }
+
+        .form-group.error .error-message {
+            display: block;
+        }
+
+        .submit-btn {
+            display: block;
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, #c48b7c, #a8695c);
+            color: #fff;
+            border: none;
+            border-radius: 12px;
+            font-family: 'Nunito', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.15s, box-shadow 0.15s;
+            box-shadow: 0 4px 15px rgba(168, 105, 92, 0.3);
+            margin-top: 0.5rem;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(168, 105, 92, 0.4);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .confirmation {
+            display: none;
+            text-align: center;
+            padding: 2.5rem 1.5rem;
+        }
+
+        .confirmation.show {
+            display: block;
+        }
+
+        .confirmation .emoji-large {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .confirmation h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            color: #6b3a3a;
+            margin-bottom: 1rem;
+        }
+
+        .confirmation p {
+            font-size: 1.05rem;
+            color: #4a3535;
+            line-height: 1.8;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 1.5rem;
+            color: #c48b7c;
+            font-weight: 600;
+            text-decoration: none;
+            font-size: 0.95rem;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        .hidden-form {
+            display: none;
+        }
+
+        @media (max-width: 600px) {
+            .page-wrapper {
+                padding: 1.5rem 1rem 3rem;
+            }
+
+            .header h1 {
+                font-size: 1.9rem;
+            }
+
+            .intro-card,
+            .form-card {
+                padding: 1.5rem 1.25rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page-wrapper">
+        <div class="header">
+            <h1>Submit Your Photos</h1>
+            <p class="subtitle">Courtney's 43rd Birthday Scrapbook</p>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="intro-card">
+            <p>Thank you for sharing photos for Courtney's scrapbook! Share a link to an album or folder below (Google Photos, iCloud, Dropbox, etc.) and Juliana will pick the best ones for your page.</p>
+            <p>These will be printed and included on the page next to your letter. Send as many as you'd like!</p>
+            <div class="deadline-banner">
+                <span class="deadline-icon">📸</span>
+                <span class="deadline-text">Photos deadline: July 1st</span>
+            </div>
+            <div class="email-note">
+                Prefer to send photos directly? You can also email them to <a href="mailto:juliana.elizabeth.t@gmail.com">juliana.elizabeth.t@gmail.com</a>
+            </div>
+        </div>
+
+        <div class="form-card" id="form-container">
+            <h2 class="form-title">Photo Submission</h2>
+
+            <form id="photo-form" name="courtney-scrapbook-photos" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" netlify>
+                <input type="hidden" name="form-name" value="courtney-scrapbook-photos">
+                <p class="hidden-form">
+                    <label>Don't fill this out: <input name="bot-field"></label>
+                </p>
+
+                <div class="form-group" data-required>
+                    <label for="full-name">Full Name</label>
+                    <input type="text" id="full-name" name="full-name" required>
+                    <p class="error-message">Please enter your name</p>
+                </div>
+
+                <div class="form-group" data-required>
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" required>
+                    <p class="error-message">Please enter a valid email address</p>
+                </div>
+
+                <div class="form-group" data-required>
+                    <label for="album-link">Album or Folder Link
+                        <span class="hint">Google Photos, iCloud, Dropbox, or any shared album/folder link</span>
+                    </label>
+                    <input type="url" id="album-link" name="album-link" placeholder="https://photos.google.com/share/..." required>
+                    <p class="error-message">Please paste a link to your photos</p>
+                </div>
+
+                <div class="form-group">
+                    <label for="photo-notes">Anything Juliana should know about these photos? <span class="optional">(optional)</span></label>
+                    <textarea id="photo-notes" name="photo-notes" placeholder="E.g., context about the photos, which ones are your favorites, etc."></textarea>
+                </div>
+
+                <button type="submit" class="submit-btn" id="submit-btn">Submit Photos 📸</button>
+            </form>
+
+            <div class="confirmation" id="confirmation">
+                <div class="emoji-large">📸</div>
+                <h2>Photos received!</h2>
+                <p>Thank you! Juliana will incorporate these into Courtney's scrapbook page. If you need to send more later, just come back and submit again before July 1st.</p>
+                <a href="/" class="back-link">&larr; Back to the main form</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        (function() {
+            const form = document.getElementById('photo-form');
+            const submitBtn = document.getElementById('submit-btn');
+            const confirmation = document.getElementById('confirmation');
+
+            function validateForm() {
+                let valid = true;
+                document.querySelectorAll('.form-group.error').forEach(g => g.classList.remove('error'));
+
+                const name = document.getElementById('full-name');
+                if (!name.value.trim()) {
+                    name.closest('.form-group').classList.add('error');
+                    valid = false;
+                }
+
+                const email = document.getElementById('email');
+                const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!email.value.trim() || !emailPattern.test(email.value.trim())) {
+                    email.closest('.form-group').classList.add('error');
+                    valid = false;
+                }
+
+                const albumLink = document.getElementById('album-link');
+                if (!albumLink.value.trim()) {
+                    albumLink.closest('.form-group').classList.add('error');
+                    valid = false;
+                }
+
+                return valid;
+            }
+
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                if (!validateForm()) {
+                    const firstError = document.querySelector('.form-group.error');
+                    if (firstError) {
+                        firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
+                    return;
+                }
+
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'Sending...';
+
+                const formData = new FormData(form);
+
+                fetch('/', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: new URLSearchParams(formData).toString()
+                })
+                .then(response => {
+                    if (response.ok) {
+                        form.style.display = 'none';
+                        document.querySelector('.form-title').style.display = 'none';
+                        confirmation.classList.add('show');
+                        confirmation.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    } else {
+                        throw new Error('Submission failed');
+                    }
+                })
+                .catch(error => {
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Submit Photos 📸';
+                    alert('Something went wrong. Please try again!');
+                });
+            });
+
+            document.querySelectorAll('.form-group input, .form-group textarea').forEach(input => {
+                input.addEventListener('input', function() {
+                    this.closest('.form-group').classList.remove('error');
+                });
+            });
+        })();
+    </script>
+</body>
+</html>

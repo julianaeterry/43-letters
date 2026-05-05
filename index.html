@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Courtney's 43rd Birthday Scrapbook</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: url('bg.jpg') center/cover no-repeat fixed;
+            color: #3d2c2c;
+            line-height: 1.7;
+            min-height: 100vh;
+            padding: 0;
+        }
+
+        .page-wrapper {
+            max-width: 680px;
+            margin: 0 auto;
+            padding: 2rem 1.25rem 4rem;
+        }
+
+        .secret-banner {
+            text-align: center;
+            background: rgba(107, 58, 58, 0.85);
+            color: #fff;
+            font-weight: 700;
+            font-size: 0.9rem;
+            padding: 0.6rem 1rem;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            letter-spacing: 0.02em;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        .header .banner-img {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 0.25rem;
+            background: rgba(255, 252, 248, 0.55);
+            backdrop-filter: blur(3px);
+            border-radius: 16px;
+            padding: 0.75rem 1rem;
+        }
+
+        .header .subtitle {
+            font-size: 1.05rem;
+            color: #c48b7c;
+            font-weight: 600;
+        }
+
+        .divider {
+            width: 80px;
+            height: 2px;
+            background: linear-gradient(to right, transparent, #c48b7c, transparent);
+            margin: 0.5rem auto 1.5rem;
+        }
+
+        .intro-card {
+            background: rgba(255, 252, 248, 0.92);
+            backdrop-filter: blur(4px);
+            border: 1px solid #eeddd4;
+            border-radius: 16px;
+            padding: 2rem 1.75rem;
+            margin-bottom: 2.5rem;
+            box-shadow: 0 4px 20px rgba(107, 58, 58, 0.1);
+            position: relative;
+        }
+
+        .intro-card::before {
+            content: '';
+            position: absolute;
+            top: -6px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 6px;
+            background: #c48b7c;
+            border-radius: 3px;
+        }
+
+        .intro-card p {
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+            color: #4a3535;
+        }
+
+        .intro-card p:last-child {
+            margin-bottom: 0;
+        }
+
+        .intro-card .highlight-line {
+            font-size: 1.05rem;
+            padding: 0.75rem 1rem;
+            background: #fdf5f0;
+            border-radius: 8px;
+            border-left: 3px solid #c48b7c;
+        }
+
+        .intro-card .highlight-line strong {
+            color: #6b3a3a;
+        }
+
+        .section-heading {
+            font-family: 'Nunito', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            color: #4a3535;
+            text-decoration: underline;
+            text-decoration-color: #c48b7c;
+            text-underline-offset: 3px;
+            margin-top: 1.25rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .numbered-ask {
+            font-size: 0.95rem;
+        }
+
+        .numbered-ask strong {
+            color: #6b3a3a;
+        }
+
+        .submission-section {
+            background: #fdf5f0;
+            border-radius: 10px;
+            padding: 1rem 1.25rem;
+            margin-top: 1rem;
+            border-left: 3px solid #c48b7c;
+        }
+
+        .submission-section p {
+            margin-bottom: 0 !important;
+        }
+
+        .intro-card ul {
+            margin: 0.5rem 0 1rem 1.25rem;
+            font-size: 0.95rem;
+            color: #4a3535;
+        }
+
+        .intro-card ul li {
+            margin-bottom: 0.35rem;
+        }
+
+        .intro-card .timeline-section {
+            background: #fdf5f0;
+            border-radius: 10px;
+            padding: 1rem 1.25rem;
+            margin-top: 1rem;
+            border-left: 3px solid #c48b7c;
+        }
+
+        .video-section {
+            margin: 1.25rem 0;
+        }
+
+        .video-label {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: #6b3a3a;
+            margin-bottom: 0.6rem !important;
+        }
+
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 75%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 12px;
+            border: 1px solid #eeddd4;
+            box-shadow: 0 2px 12px rgba(107, 58, 58, 0.08);
+        }
+
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 12px;
+        }
+
+        .share-callout {
+            margin-top: 1.25rem;
+            padding: 0.85rem 1.15rem;
+            background: #f9f0ec;
+            border-radius: 10px;
+            border: 1px dashed #c48b7c;
+            font-size: 0.9rem;
+            color: #4a3535;
+        }
+
+        .share-callout strong {
+            color: #6b3a3a;
+        }
+
+        .photo-form-link {
+            display: inline-block;
+            margin-top: 1.5rem;
+            padding: 0.7rem 1.25rem;
+            background: #fdf5f0;
+            border: 1.5px solid #c48b7c;
+            border-radius: 10px;
+            color: #6b3a3a;
+            font-weight: 600;
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: background 0.15s, transform 0.15s;
+        }
+
+        .photo-form-link:hover {
+            background: #faeee8;
+            transform: translateY(-1px);
+        }
+
+        .intro-card .timeline-section p {
+            margin-bottom: 0.75rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .deadline-grid {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .deadline-item {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            background: #fffcf8;
+            border: 1.5px solid #c48b7c;
+            border-radius: 10px;
+            padding: 0.6rem 1rem;
+            flex: 1;
+            min-width: 180px;
+        }
+
+        .deadline-icon {
+            font-size: 1.4rem;
+        }
+
+        .deadline-label {
+            display: block;
+            font-size: 0.78rem;
+            color: #8a6060;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+        }
+
+        .deadline-date {
+            display: block;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #6b3a3a;
+        }
+
+        .form-card {
+            background: rgba(255, 252, 248, 0.92);
+            backdrop-filter: blur(4px);
+            border: 1px solid #eeddd4;
+            border-radius: 16px;
+            padding: 2rem 1.75rem;
+            box-shadow: 0 4px 20px rgba(107, 58, 58, 0.1);
+        }
+
+        .form-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: #6b3a3a;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 0.4rem;
+            color: #4a3535;
+        }
+
+        .form-group label .optional {
+            font-weight: 400;
+            color: #a08080;
+            font-size: 0.85rem;
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="email"],
+        .form-group input[type="tel"],
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1.5px solid #e4d5cc;
+            border-radius: 10px;
+            font-family: 'Nunito', sans-serif;
+            font-size: 0.95rem;
+            color: #3d2c2c;
+            background: #fefcfa;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #c48b7c;
+            box-shadow: 0 0 0 3px rgba(196, 139, 124, 0.15);
+        }
+
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .form-group.error input,
+        .form-group.error textarea {
+            border-color: #d4726a;
+        }
+
+        .error-message {
+            color: #d4726a;
+            font-size: 0.82rem;
+            margin-top: 0.35rem;
+            display: none;
+            font-weight: 600;
+        }
+
+        .form-group.error .error-message {
+            display: block;
+        }
+
+        .radio-group {
+            margin-top: 0.4rem;
+        }
+
+        .radio-option {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.6rem;
+            padding: 0.6rem 0.85rem;
+            margin-bottom: 0.4rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.15s;
+        }
+
+        .radio-option:hover {
+            background: #fdf5f0;
+        }
+
+        .radio-option input[type="radio"] {
+            margin-top: 0.2rem;
+            accent-color: #c48b7c;
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+        }
+
+        .radio-option span {
+            font-size: 0.92rem;
+            color: #4a3535;
+            cursor: pointer;
+        }
+
+        .form-group.error .radio-group {
+            border: 1.5px solid #d4726a;
+            border-radius: 10px;
+            padding: 0.25rem;
+        }
+
+        .submit-btn {
+            display: block;
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, #c48b7c, #a8695c);
+            color: #fff;
+            border: none;
+            border-radius: 12px;
+            font-family: 'Nunito', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.15s, box-shadow 0.15s;
+            box-shadow: 0 4px 15px rgba(168, 105, 92, 0.3);
+            margin-top: 0.5rem;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(168, 105, 92, 0.4);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .confirmation {
+            display: none;
+            text-align: center;
+            padding: 2.5rem 1.5rem;
+        }
+
+        .confirmation.show {
+            display: block;
+        }
+
+        .confirmation .emoji-large {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .confirmation h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            color: #6b3a3a;
+            margin-bottom: 1rem;
+        }
+
+        .confirmation p {
+            font-size: 1.05rem;
+            color: #4a3535;
+            line-height: 1.8;
+        }
+
+        .hidden-form {
+            display: none;
+        }
+
+        @media (max-width: 600px) {
+            .page-wrapper {
+                padding: 1.5rem 1rem 3rem;
+            }
+
+            .header h1 {
+                font-size: 1.9rem;
+            }
+
+            .intro-card,
+            .form-card {
+                padding: 1.5rem 1.25rem;
+            }
+
+            .intro-card {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page-wrapper">
+        <div class="secret-banner">🤫 This is a surprise — please do not mention this to Courtney! 🤫</div>
+
+        <div class="header">
+            <img src="banner.png" alt="43 Letters for Courtney's 43rd" class="banner-img">
+        </div>
+
+        <div class="intro-card">
+            <p>If you are receiving this it's because you know Courtney. And because you know Courtney, you know exactly the kind of person she is. She loves unconditionally, she shows up without question whether you have known her 5 minutes or 5 years. She knows how to make everyone around her feel seen, welcomed and loved. And for her birthday this year I want your help in celebrating that in a big way. <strong>She has no idea this is happening, so please keep it between us!</strong></p>
+
+            <p class="highlight-line">For her 43rd birthday on <strong>July 21st</strong> I want to put together a scrapbook with <strong>43 letters</strong> from <strong>43 people</strong> she has meant something to.</p>
+
+            <div class="video-section">
+                <p class="video-label">Here is an example:</p>
+                <div class="video-wrapper">
+                    <iframe src="https://drive.google.com/file/d/1oEelpWuyHM0i4y44YqOWmIGxSoBxixaB/preview" allow="autoplay" allowfullscreen></iframe>
+                </div>
+            </div>
+
+            <h3 class="section-heading">Here is what I am asking for:</h3>
+
+            <p class="numbered-ask"><strong>1. A letter from you.</strong> It can be as long or as short as you want. The only requirement is that the paper can be folded into an A7 envelope. Write whatever feels right. But here are some suggested things to consider:</p>
+
+            <ul>
+                <li>A favorite memory with Courtney</li>
+                <li>How she has impacted your life</li>
+                <li>Something you genuinely admire about her</li>
+                <li>A wish or hope for her in the coming year</li>
+                <li>An inside joke or funny story</li>
+            </ul>
+
+            <p class="numbered-ask"><strong>2. Photos</strong> (optional!) If you have photos of you and Courtney, or maybe of something meaningful you share, that you want included on your page please submit them through our <a href="/photos" style="color: #c48b7c; font-weight: 600;">photo submission form</a> or email them to juliana.elizabeth.t@gmail.com.</p>
+
+            <div class="timeline-section">
+                <h3 class="section-heading" style="margin-top: 0;">Timeline</h3>
+                <div class="deadline-grid">
+                    <div class="deadline-item">
+                        <span class="deadline-icon">📸</span>
+                        <div>
+                            <span class="deadline-label">Photos deadline</span>
+                            <span class="deadline-date">July 1st</span>
+                        </div>
+                    </div>
+                    <div class="deadline-item">
+                        <span class="deadline-icon">✉️</span>
+                        <div>
+                            <span class="deadline-label">Letters deadline</span>
+                            <span class="deadline-date">July 14th</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="submission-section">
+                <h3 class="section-heading" style="margin-top: 0;">Submission</h3>
+                <p>If you plan to submit a letter (handwritten or typed) please complete the form below. This will help track that we have at least 43 people participating. It will also let me know if I should leave room for pictures or decorate the page next to your envelope.</p>
+            </div>
+
+            <div class="share-callout">
+                <strong>Please share this form</strong> with anyone who knows and loves Courtney. The more letters, the better.
+            </div>
+        </div>
+
+        <div class="form-card" id="form-container">
+            <h2 class="form-title">Count Me In</h2>
+
+            <form id="scrapbook-form" name="courtney-scrapbook" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" netlify>
+                <input type="hidden" name="form-name" value="courtney-scrapbook">
+                <p class="hidden-form">
+                    <label>Don't fill this out: <input name="bot-field"></label>
+                </p>
+
+                <div class="form-group" data-required>
+                    <label for="full-name">Full Name</label>
+                    <input type="text" id="full-name" name="full-name" required>
+                    <p class="error-message">Please enter your name</p>
+                </div>
+
+                <div class="form-group">
+                    <label for="letter-name">Name you want on your letter page <span class="optional">(optional)</span></label>
+                    <input type="text" id="letter-name" name="letter-name" placeholder="Nickname, first name, etc.">
+                </div>
+
+                <div class="form-group" data-required>
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" required>
+                    <p class="error-message">Please enter a valid email address</p>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Phone Number <span class="optional">(optional)</span></label>
+                    <input type="tel" id="phone" name="phone">
+                </div>
+
+                <div class="form-group">
+                    <label for="how-know">How do you know Courtney? <span class="optional">(optional)</span></label>
+                    <input type="text" id="how-know" name="how-know">
+                </div>
+
+                <div class="form-group" data-required>
+                    <label>Do you want to handwrite or email your letter?</label>
+                    <div class="radio-group">
+                        <label class="radio-option">
+                            <input type="radio" name="letter-method" value="Handwritten" required>
+                            <span>Handwritten</span>
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="letter-method" value="Email">
+                            <span>Email</span>
+                        </label>
+                    </div>
+                    <p class="error-message">Please select an option</p>
+                </div>
+
+                <div class="form-group" data-required>
+                    <label>How will you be dropping off / submitting?</label>
+                    <div class="radio-group">
+                        <label class="radio-option">
+                            <input type="radio" name="dropoff-method" value="Kinitro drop-off" required>
+                            <span>Kinitro drop-off</span>
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="dropoff-method" value="Coordinate a pickup with Juliana">
+                            <span>Coordinate a pickup with Juliana</span>
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="dropoff-method" value="Email to Juliana">
+                            <span>I'll email my letter to juliana.elizabeth.t@gmail.com</span>
+                        </label>
+                    </div>
+                    <p class="error-message">Please select an option</p>
+                </div>
+
+                <div class="form-group" data-required>
+                    <label>Do you plan to submit photos?</label>
+                    <div class="radio-group">
+                        <label class="radio-option">
+                            <input type="radio" name="photos" value="Yes, I will submit photos no later than July 1st" required>
+                            <span>Yes, I will submit photos no later than July 1st</span>
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="photos" value="No, please decorate the corresponding page for me">
+                            <span>No, please decorate the corresponding page for me</span>
+                        </label>
+                    </div>
+                    <p class="error-message">Please select an option</p>
+                </div>
+
+                <div class="form-group">
+                    <label for="anything-else">Any questions or suggestions? <span class="optional">(optional)</span></label>
+                    <textarea id="anything-else" name="anything-else" placeholder="Questions, suggestions, or just a note..."></textarea>
+                </div>
+
+                <button type="submit" class="submit-btn" id="submit-btn">Count Me In! 🎉</button>
+            </form>
+
+            <div class="confirmation" id="confirmation">
+                <div class="emoji-large">🎉</div>
+                <h2>You're in!</h2>
+                <p>Thank you so much for being part of this &mdash; it means the world. Keep an eye on your email for any updates from Juliana. And remember &mdash; not a word to Courtney! 🤫</p>
+                <a href="/photos" class="photo-form-link">Ready to submit photos? Upload them here &rarr;</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        (function() {
+            const form = document.getElementById('scrapbook-form');
+            const submitBtn = document.getElementById('submit-btn');
+            const confirmation = document.getElementById('confirmation');
+
+            function validateForm() {
+                let valid = true;
+
+                document.querySelectorAll('.form-group.error').forEach(g => g.classList.remove('error'));
+
+                const name = document.getElementById('full-name');
+                if (!name.value.trim()) {
+                    name.closest('.form-group').classList.add('error');
+                    valid = false;
+                }
+
+                const email = document.getElementById('email');
+                const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!email.value.trim() || !emailPattern.test(email.value.trim())) {
+                    email.closest('.form-group').classList.add('error');
+                    valid = false;
+                }
+
+                const radioGroups = ['letter-method', 'dropoff-method', 'photos'];
+                radioGroups.forEach(groupName => {
+                    const checked = form.querySelector(`input[name="${groupName}"]:checked`);
+                    if (!checked) {
+                        const container = form.querySelector(`input[name="${groupName}"]`).closest('.form-group');
+                        container.classList.add('error');
+                        valid = false;
+                    }
+                });
+
+                return valid;
+            }
+
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                if (!validateForm()) {
+                    const firstError = document.querySelector('.form-group.error');
+                    if (firstError) {
+                        firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
+                    return;
+                }
+
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'Sending...';
+
+                const formData = new FormData(form);
+
+                fetch('/', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: new URLSearchParams(formData).toString()
+                })
+                .then(response => {
+                    if (response.ok) {
+                        form.style.display = 'none';
+                        document.querySelector('.form-title').style.display = 'none';
+                        confirmation.classList.add('show');
+                        confirmation.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    } else {
+                        throw new Error('Form submission failed');
+                    }
+                })
+                .catch(error => {
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Count Me In! 🎉';
+                    alert('Something went wrong. Please try again!');
+                });
+            });
+
+            // Clear error state on input
+            document.querySelectorAll('.form-group input, .form-group textarea').forEach(input => {
+                input.addEventListener('input', function() {
+                    this.closest('.form-group').classList.remove('error');
+                });
+                input.addEventListener('change', function() {
+                    this.closest('.form-group').classList.remove('error');
+                });
+            });
+        })();
+    </script>
+</body>
+</html>
